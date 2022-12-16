@@ -29,36 +29,40 @@ food_runner_percentage = st.number_input(label="Enter food runner tip percentage
 total_cc_tips = fn.total(bt1_cc_tips, bt2_cc_tips, bt3_cc_tips, bt4_cc_tips)
 total_hours = fn.total(bt1_hours_worked, bt2_hours_worked, bt3_hours_worked,
                        bt4_hours_worked)
-
 total_tips = st.number_input(label="Total tips")
 
-# Support staff tipouts
-total_barback_tipouts = fn.barback_tips(bar_back_present, total_tips, bar_back_percentage,
-                    total_hours, bt1_hours_worked, bt2_hours_worked, bt3_hours_worked,
-                    bt4_hours_worked)
-total_runner_tipout = fn.foodrunner(food_runner_present, food_sales, food_runner_percentage)
+if st.button(label="Calculate Tipout"):
+    # Barback Payout
+    bar_back_payout = []
+    bar_back_tips = bar_back_payout
+    if bar_back_present.startswith("y") or bar_back_present.startswith("Y"):
+        if bt3_hours_worked == 0 and bt4_hours_worked == 0:
+            bar_back_payout = fn.barback_tips_2(total_tips, bar_back_percentage,
+                                                     total_hours, bt1_hours_worked,
+                                                     bt2_hours_worked)
+        elif bt4_hours_worked == 0:
+            bar_back_payout = fn.barback_tips_3(total_tips, bar_back_percentage,
+                                                     total_hours, bt1_hours_worked,
+                                                     bt2_hours_worked, bt3_hours_worked)
+        else:
+            bar_back_payout = fn.barback_tips_4(total_tips, bar_back_percentage,
+                                                     total_hours, bt1_hours_worked,
+                                                     bt2_hours_worked, bt3_hours_worked,
+                                                     bt4_hours_worked)
 
-total_after_tipout = total_tips - total_runner_tipout - total_barback_tipouts[0]
+    # Food Runner Pay
+    food_runner_payout = fn.foodrunner(food_runner_present, food_sales,
+                                       food_runner_percentage)
 
-# Hourly rates
-cc_hourly_rate = fn.hourly_rate(total_cc_tips, total_hours, bt1_hours_worked,
-                               bt2_hours_worked, bt3_hours_worked, bt4_hours_worked)
+    # Bartenders Hourly rate
+    total_after_tipouts = total_tips - food_runner_payout - bar_back_tips
+    hourly_rate = fn.hourly_rate(total_after_tipouts, total_hours, bt1_hours_worked,
+                                 bt2_hours_worked, bt3_hours_worked,
+                                 bt4_hours_worked)
 
-total_hourly_rate = fn.hourly_rate(total_after_tipout, total_hours, bt1_hours_worked,
-                               bt2_hours_worked, bt3_hours_worked, bt4_hours_worked)
 
-# Bartender tips
-bt1_gets = total_hourly_rate[1]
-bt2_gets = total_hourly_rate[2]
-try:
-    bt3_gets = total_hourly_rate[3]
-except IndexError:
-    bt3_gets = 0
-try:
-    bt4_gets = total_hourly_rate[4]
-except IndexError:
-    bt4_gets = 0
-# Calculate button
-calculate_button = st.button(label="Calculate tipout")
+
+
+
 
 
