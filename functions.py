@@ -5,7 +5,7 @@ def total(a, b, c, d):
 
 # calculates barback tips
 def barback_tips(total_tips, bar_back_tip_percent):
-    barback = round(total_tips * bar_back_tip_percent / 100, 2)
+    barback = total_tips * bar_back_tip_percent / 100
     return barback
 
 
@@ -20,7 +20,7 @@ def foodrunner(food_sales, runner_percentage):
 # calculates hourly rate
 def hourly_rate(total_money, total_hours):
 
-    hourly = float(round(total_money / total_hours, 2))
+    hourly = float(total_money / total_hours)
     return hourly
 
 
