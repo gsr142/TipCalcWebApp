@@ -63,14 +63,12 @@ if st.button(label="Calculate Tipout"):
     if food_runner_payout > 0:
         st.write(f"Food runner receives ${food_runner_payout}")
 
-
-
     # Bartenders Hourly rate
     total_after_tipouts = float(total_tips - food_runner_payout - bar_back_payout)
     cc_total_after_tipout = float(total_cc_tips - food_runner_payout - bar_back_payout)
     st.write(f"cc tips after support tipout are ${cc_total_after_tipout}")
-    cc_hourly = float(total_cc_tips / total_hours)
-    st.write(f"cc hourly rate is ${cc_hourly.round(2)}")
+    cc_hourly = float(total_cc_tips / total_hours).__round__(2)
+    st.write(f"cc hourly rate is ${cc_hourly}")
 
     hourly_rate = float(fn.hourly_rate(total_after_tipouts, total_hours))
     st.write(f"actual hourly rate is ${hourly_rate}")
@@ -99,26 +97,21 @@ if st.button(label="Calculate Tipout"):
         exit()
 
     # Bartender tipout to each other
-
-
     if bt1_cc_hourly <= bt1_cc_tips:
         st.write(f"Bartender 1 tips out ${round(bt1_cc_tips - bt1_cc_hourly, 2)}")
     elif bt1_cc_hourly > bt1_cc_tips:
         st.write(f"Bartender 1 receives ${round(bt1_cc_hourly - bt1_cc_tips, 2)}")
-
 
     if bt2_cc_hourly <= bt2_cc_tips:
         st.write(f"Bartender 2 tips out ${round(bt2_cc_tips - bt2_cc_hourly, 2)}")
     elif bt2_cc_hourly > bt2_cc_tips:
         st.write(f"Bartender 2 receives ${round(bt2_cc_hourly - bt2_cc_tips, 2)}")
 
-
     if bt3_cc_hourly > 0:
         if bt3_cc_hourly <= bt3_cc_tips:
             st.write(f"Bartender 3 tips out ${round(bt3_cc_tips - bt3_cc_hourly, 2)}")
         elif bt3_cc_hourly > bt3_cc_tips:
             st.write(f"Bartender 3 receives ${round(bt3_cc_hourly - bt3_cc_tips, 2)}")
-
 
     if bt4_cc_hourly > 0:
         if bt4_cc_hourly <= bt4_cc_tips:
