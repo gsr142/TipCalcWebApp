@@ -70,7 +70,7 @@ if st.button(label="Calculate Tipout"):
     cc_total_after_tipout = float(total_cc_tips - food_runner_payout - bar_back_payout)
     st.write(f"cc tips after support tipout are ${cc_total_after_tipout}")
     cc_hourly = float(total_cc_tips / total_hours)
-    st.write(f"cc hourly rate is ${cc_hourly}")
+    st.write(f"cc hourly rate is ${cc_hourly.round(2)}")
 
     hourly_rate = float(fn.hourly_rate(total_after_tipouts, total_hours))
     st.write(f"actual hourly rate is ${hourly_rate}")
@@ -80,12 +80,11 @@ if st.button(label="Calculate Tipout"):
         bt1_take_home = float(hourly_rate * bt1_hours_worked)
         bt1_cc_hourly = float(bt1_hours_worked * cc_hourly)
         st.write(f"Bartender 1 takes home ${bt1_take_home}")
-        st.write(f"Bartender 1 cc total = ${bt1_cc_hourly}")
 
         bt2_take_home = float(hourly_rate * bt2_hours_worked)
         bt2_cc_hourly = float(bt2_hours_worked * cc_hourly)
         st.write(f"Bartender 2 takes home ${bt2_take_home}")
-        st.write(f"Bartender 2 cc total = ${bt2_cc_hourly}")
+
         bt3_take_home = float(hourly_rate * bt3_hours_worked)
         bt3_cc_hourly = float(bt3_hours_worked * cc_hourly)
         if bt3_take_home > 0:
